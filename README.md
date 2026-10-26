@@ -2,6 +2,16 @@
 
 AI research assistant untuk mahasiswa Indonesia. Upload PDF jurnal, tanya dalam bahasa apapun, dan dapatkan jawaban yang selalu disertai sumber dari perpustakaanmu — tidak ada referensi yang dikarang-karang.
 
+## Screenshots
+
+| Login | Perpustakaan |
+|---|---|
+| ![Login](screenshots/01_login.png) | ![Perpustakaan](screenshots/02_library.png) |
+
+| Detail Jurnal | Chat dengan Sitasi |
+|---|---|
+| ![Detail Jurnal](screenshots/03_paper_detail.png) | ![Chat](screenshots/05_chat_with_response.png) |
+
 ## Fitur
 
 - **Upload & proses jurnal** — upload PDF; sistem otomatis mengekstrak teks, membuat chunk, dan menghasilkan embedding
