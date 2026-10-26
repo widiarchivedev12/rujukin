@@ -1,3 +1,13 @@
+function decodeHtml(text: string): string {
+  return text
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#(\d+);/g, (_, c) => String.fromCharCode(Number(c)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCharCode(parseInt(h, 16)))
+}
+
 export type PaperMetadata = {
   title: string
   authors: string[]
@@ -30,14 +40,14 @@ export async function fetchMetadataByDoi(doi: string): Promise<PaperMetadata | n
     if (!res.ok) return null
     const { message: work } = await res.json()
     return {
-      title: work.title?.[0] ?? '',
+      title: decodeHtml(work.title?.[0] ?? ''),
       authors: (work.author ?? []).map((a: CrossrefAuthor) =>
         [a.given, a.family].filter(Boolean).join(' ')
       ),
       year: work.published?.['date-parts']?.[0]?.[0] ?? null,
-      journal: work['container-title']?.[0] ?? null,
+      journal: work['container-title']?.[0] ? decodeHtml(work['container-title'][0]) : null,
       doi: work.DOI ?? doi,
-      abstract: work.abstract ?? null,
+      abstract: work.abstract ? decodeHtml(work.abstract) : null,
     }
   } catch {
     return null
